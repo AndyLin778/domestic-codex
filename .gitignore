@@ -1,0 +1,13 @@
+# 个人数据，永远不要提交
+.codex/
+.codex-deepseek/
+*.log
+
+# 密钥
+config/config.local.toml
+**/config.local.*
+
+# 系统
+Thumbs.db
+desktop.ini
+.DS_Store

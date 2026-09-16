@@ -1,0 +1,92 @@
+# ============================================================
+# DeepSeek Codex 配置模板
+#
+# 用法：复制到 %USERPROFILE%\.codex-deepseek\config.toml
+# 启动器把 CODEX_HOME 指向 .codex-deepseek 之后，客户端就读这里。
+#
+# 需要你改的两处：<你的用户名>、<YOUR_DEEPSEEK_API_KEY>
+# 其余段落是应用自己维护的，这里列出来供对照；路径里的版本哈希
+# （bin\xxx、runtimes\cua_node\xxx）会随升级变化，不要照抄。
+# ============================================================
+
+# ---- 最小必需块 -------------------------------------------------
+# 用 API Key 登录，不走 ChatGPT 账号
+cli_auth_credentials_store = "file"
+preferred_auth_method      = "apikey"
+forced_login_method        = "api"
+
+# 默认模型与推理强度
+model                  = "deepseek-flash"
+model_reasoning_effort = "high"
+model_provider         = "deepseek"
+
+# 自定义模型目录：GUI 的模型下拉框靠它，缺了就不会出现 DeepSeek
+model_catalog_json = "C:/Users/<你的用户名>/.codex-deepseek/models.json"
+
+# DeepSeek 侧没有官方联网搜索工具，关掉
+web_search = "disabled"
+
+# 模型供应商：DeepSeek 官方接口
+[model_providers.deepseek]
+name                     = "deepseek"
+base_url                 = "https://api.deepseek.com/"
+wire_api                 = "responses"
+experimental_bearer_token = "<YOUR_DEEPSEEK_API_KEY>"
+
+# ---- 沙箱 -------------------------------------------------------
+# 建议 unelevated。用 elevated 时本机出现过 helper_sandbox_lock_failed：
+# 提权沙箱要给 .sandbox-bin 设 ACL，而该目录的权限不允许当前用户改 DACL。
+[windows]
+sandbox = "unelevated"
+
+# ---- 界面（可选） -----------------------------------------------
+[desktop]
+conversationDetailMode    = "STEPS_COMMANDS"
+ambient-suggestions-enabled = true
+localeOverride            = "zh-CN"
+followUpQueueMode         = "queue"
+
+# ---- 插件 -------------------------------------------------------
+# 这些段落由客户端的插件市场机制维护；下面只是把默认开着的列出来。
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."latex@openai-bundled"]
+enabled = true
+
+[plugins."unified-computer-use@openai-bundled"]
+enabled = true
+
+[plugins."computer-use@openai-bundled"]
+enabled = true
+
+[features]
+js_repl = false
+
+# ---- 工作目录信任列表 -------------------------------------------
+# 客户端会在你"信任"某个文件夹时自动往这里追加，不必手写。
+# 形如：
+#
+# [projects.'c:\users\你的用户名\some-project']
+# trust_level = "trusted"

@@ -1,0 +1,6 @@
+# PowerShell 脚本保持 CRLF（文件本身带 UTF-8 BOM，Windows PowerShell 5.1 需要）
+*.ps1 text eol=crlf
+
+# 文档统一 LF
+*.md text eol=lf
+*.toml text eol=lf
