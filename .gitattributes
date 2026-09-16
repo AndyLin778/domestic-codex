@@ -1,5 +1,5 @@
-# PowerShell 脚本保持 CRLF（文件本身带 UTF-8 BOM，Windows PowerShell 5.1 需要）
-*.ps1 text eol=crlf
+# PowerShell 脚本自带 UTF-8 BOM 与 CRLF，禁止 git 做任何换行转换，保证字节与源文件一致
+*.ps1 -text
 
 # 文档统一 LF
 *.md text eol=lf
